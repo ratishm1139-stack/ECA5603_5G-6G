@@ -1,0 +1,94 @@
+% OBJECTIVE 4: RESOURCE-ALLOCATION DIAGRAMS
+
+clear;
+clc;
+close all;
+
+% Create figure with three diagrams
+figure;
+tiledlayout(1, 3);
+
+% Colors for four users
+colors = lines(4);
+
+%% FDMA: Different frequency channels
+
+nexttile;
+hold on;
+
+for u = 1:4
+    rectangle('Position', [0, u-1, 1, 0.8], ...
+        'FaceColor', colors(u,:), ...
+        'EdgeColor', 'k');
+
+    text(0.5, u-0.6, sprintf('User %d', u), ...
+        'HorizontalAlignment', 'center');
+end
+
+xlim([0 1]);
+ylim([0 4]);
+
+xlabel('Time');
+ylabel('Frequency Channel');
+title('FDMA');
+
+set(gca, 'YTick', []);
+hold off;
+
+
+%% TDMA: Different time slots
+
+nexttile;
+hold on;
+
+for u = 1:4
+    rectangle('Position', [u-1, 0, 0.8, 1], ...
+        'FaceColor', colors(u,:), ...
+        'EdgeColor', 'k');
+
+    text(u-0.6, 0.5, sprintf('User %d', u), ...
+        'HorizontalAlignment', 'center');
+end
+
+xlim([0 4]);
+ylim([0 1]);
+
+xlabel('Time Slot');
+ylabel('Frequency Channel');
+title('TDMA');
+
+set(gca, 'YTick', []);
+hold off;
+
+
+%% CDMA: Shared frequency band with different codes
+
+nexttile;
+hold on;
+
+for u = 1:4
+    rectangle('Position', [0, 0, 1, 1], ...
+        'FaceColor', colors(u,:), ...
+        'FaceAlpha', 0.22, ...
+        'EdgeColor', colors(u,:), ...
+        'LineWidth', 1.5);
+end
+
+text(0.5, 0.62, 'Users 1-4 share', ...
+    'HorizontalAlignment', 'center');
+
+text(0.5, 0.40, 'band; different codes', ...
+    'HorizontalAlignment', 'center');
+
+xlim([0 1]);
+ylim([0 1]);
+
+xlabel('Time');
+ylabel('Frequency Band');
+title('CDMA');
+
+set(gca, 'YTick', []);
+hold off;
+
+% Overall title
+sgtitle('FDMA, TDMA and CDMA Resource Allocation');

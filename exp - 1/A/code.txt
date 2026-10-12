@@ -1,0 +1,33 @@
+clear;
+clc;
+close all;
+
+% System parameters
+totalBandwidthHz = 1e6;
+fdmaChannelHz = 200e3;
+tdmaSlots = 8;
+processingGain = 64;
+targetSIRdB = 7;
+
+% Calculate user capacity
+fdmaUsers = floor(totalBandwidthHz / fdmaChannelHz);
+tdmaUsers = tdmaSlots;
+
+targetSIR = 10^(targetSIRdB / 10);
+cdmaUsers = floor(1 + processingGain / targetSIR);
+
+% Capacity values
+method = {'FDMA', 'TDMA', 'CDMA'};
+users = [fdmaUsers, tdmaUsers, cdmaUsers];
+
+% Plot graph
+figure;
+bar(users);
+
+set(gca, 'XTick', 1:3, 'XTickLabel', method);
+
+xlabel('Multiple Access Technique');
+ylabel('Maximum Supported Users');
+title('FDMA, TDMA and CDMA Capacity Comparison');
+
+grid on;

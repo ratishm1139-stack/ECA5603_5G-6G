@@ -1,0 +1,30 @@
+clear;
+clc;
+close all;
+
+% System parameters
+processingGain = 64;
+targetSIRdB = 7;
+
+% Number of simultaneous users
+K = 2:30;
+
+% Calculate SIR
+sirLinear = processingGain ./ (K - 1);
+sirDb = 10 * log10(sirLinear);
+
+% Plot graph
+figure;
+plot(K, sirDb, 'bo-', 'LineWidth', 1.5);
+
+hold on;
+yline(targetSIRdB, 'r--', 'Target SIR');
+
+xlabel('Number of Simultaneous CDMA Users (K)');
+ylabel('Estimated SIR (dB)');
+title('CDMA SIR versus Number of Users');
+
+legend('Estimated SIR', 'Target SIR');
+grid on;
+
+hold off;

@@ -1,0 +1,29 @@
+clear;
+clc;
+close all;
+
+figure;
+hold on;
+
+colors = lines(4);
+
+for u = 1:4
+    rectangle('Position', [0, u-1, 1, 0.8], ...
+        'FaceColor', colors(u,:), ...
+        'EdgeColor', 'k');
+
+    text(0.5, u-0.6, sprintf('User %d', u), ...
+        'HorizontalAlignment', 'center');
+end
+
+xlim([0 1]);
+ylim([0 4]);
+
+xlabel('Time');
+ylabel('Frequency Channel');
+title('FDMA Resource Allocation');
+
+set(gca, 'YTick', []);
+grid on;
+
+hold off;
