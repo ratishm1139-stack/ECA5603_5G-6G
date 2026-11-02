@@ -1,0 +1,54 @@
+% BER and Reliability Analysis
+
+clc;
+clear;
+close all;
+
+% SNR Range
+SNR_dB = 0:2:20;
+
+% Initialize Reliability Array
+Reliability = zeros(size(SNR_dB));
+
+% Simulation Loop
+for k = 1:length(SNR_dB)
+
+    N = 10000;
+
+    % Generate Random Bits
+    bits = randi([0 1], N, 1);
+
+    % BPSK Modulation
+    tx = 2 * bits - 1;
+
+    % Convert SNR from dB to Linear
+    snrLin = 10^(SNR_dB(k)/10);
+
+    % Add Gaussian Noise
+    noise = randn(N, 1) / sqrt(2 * snrLin);
+
+    % Received Signal
+    rx = tx + noise;
+
+    % Demodulation
+    bhat = real(rx) > 0;
+
+    % Calculate Bit Error Rate
+    BER = mean(bhat ~= bits);
+
+    % Calculate Reliability
+    Reliability(k) = 1 - BER;
+
+end
+
+% Plot Reliability Graph
+figure;
+
+plot(SNR_dB, Reliability, 'o-', 'LineWidth', 2);
+
+grid on;
+
+xlabel('SNR (dB)');
+ylabel('Reliability (1-BER)');
+
+title('Communication Reliability vs SNR');

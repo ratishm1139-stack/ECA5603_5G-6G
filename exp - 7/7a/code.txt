@@ -1,0 +1,30 @@
+clc;
+clear;
+close all;
+
+% Parameters
+Nsc = 24;                    % Number of subcarriers
+Nsym = 14;                   % OFDM symbols per slot
+
+% Initialize Resource Grid
+grid = zeros(Nsym, Nsc);
+
+% Simplified Downlink (DL) Assignment
+grid(1:10, :) = 1;
+
+% Simplified Uplink (UL) Assignment
+grid(11:14, :) = 2;
+
+% Plot Resource Grid
+figure;
+
+imagesc(grid);
+
+grid on;
+
+xlabel('Subcarrier Index');
+ylabel('OFDM Symbol Index');
+
+title('Simplified 5G NR Time-Frequency Resource Grid');
+
+colorbar;
